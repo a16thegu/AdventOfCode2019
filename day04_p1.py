@@ -20,7 +20,7 @@
 # Your puzzle input is 235741-706948.
 
 rangeMin = 235741
-rangeMax = 235841
+rangeMax = 706948
 validInputs = []
 
 for userInput in range(rangeMin, rangeMax) :
@@ -31,24 +31,20 @@ for userInput in range(rangeMin, rangeMax) :
     index = 0
     isTrue = True
     for singular in output :
-        if singular >= output[index - 1] :
-            if singular == output[index] and singular == output[index - 1] :
-                isTrue = True
-                print(isTrue)
-                index += 1
-            elif singular > output[index - 1] :
-                isTrue = True
-                print(isTrue)
-                index += 1
-            else :
-                isTrue = False
-                print(isTrue)
+        if index == 0 :
+            #print(isTrue)
+            index += 1 
+        elif singular >= output[index - 1] :
+            isTrue = True
+            #print(isTrue)
+            index += 1                
         else :
             isTrue = False
-            print(isTrue)
+            #print(isTrue)
+            break
         
     if isTrue == True :
-        print(userInput)
+        #print(userInput)
         validInputs.append(userInput)
     else :
         continue
