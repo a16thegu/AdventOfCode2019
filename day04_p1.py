@@ -19,3 +19,11 @@
 
 # Your puzzle input is 235741-706948.
 
+rangeMin = 235741
+rangeMax = 706948
+
+for userInput in range(rangeMin, rangeMax) :
+    input = [userInput]
+    output = list(map(int, str(input[0])))
+    print(output)
+    
