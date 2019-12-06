@@ -21,6 +21,7 @@
 
 rangeMin = 235741
 rangeMax = 706948
+matchedInputs = []
 validInputs = []
 
 for userInput in range(rangeMin, rangeMax) :
@@ -45,9 +46,31 @@ for userInput in range(rangeMin, rangeMax) :
         
     if isTrue == True :
         #print(userInput)
-        validInputs.append(userInput)
+        matchedInputs.append(userInput)
     else :
         continue
+
+for num in matchedInputs :
+    input = [num]
+    output = list(map(int, str(input[0])))
     
+    index = 0
+    count = 0
+    isTrue = False
+    for singular in output :
+        if singular == output[index - 1] and count is not 2:
+            count += 1
+            isTrue = True
+        else :
+            isTrue = False
+            continue
+    
+    if isTrue == True :
+        #print(userInput)
+        validInputs.append(num)
+    else :
+        continue
+        
+
 print(len(validInputs))
 print(validInputs)
