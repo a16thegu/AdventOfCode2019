@@ -19,9 +19,25 @@
 
 # Your puzzle input is 235741-706948.
 
+# Borrowed code from https://github.com/sswingle/advent-of-code/blob/master/day04.py
+# To understand what to do and for me to change the logic in my code, to solve the 
+# puzzle using my logic.
+
+# from collections import Counter
+
+# def check1(s):
+#     return list(s) == sorted(s) and len(set(s)) < len(s) 
+
+# def check2(s):
+#     return list(s) == sorted(s) and 2 in Counter(s).values()
+
+# print(sum(check1(str(x)) for x in range(235741, 706948)))
+# print(sum(check2(str(x)) for x in range(235741, 706948)))
+
+from collections import Counter
+
 rangeMin = 235741
 rangeMax = 706948
-matchedInputs = []
 validInputs = []
 
 for userInput in range(rangeMin, rangeMax) :
@@ -29,48 +45,9 @@ for userInput in range(rangeMin, rangeMax) :
     output = list(map(int, str(input[0])))
     #print(output)
     
-    index = 0
-    isTrue = True
-    for singular in output :
-        if index == 0 :
-            #print(isTrue)
-            index += 1 
-        elif singular >= output[index - 1] :
-            isTrue = True
-            #print(isTrue)
-            index += 1                
-        else :
-            isTrue = False
-            #print(isTrue)
-            break
+    if output == sorted(output) :
+        if len(set(output)) < len(output) :
+            validInputs.append(output)
         
-    if isTrue == True :
-        #print(userInput)
-        matchedInputs.append(userInput)
-    else :
-        continue
-
-for num in matchedInputs :
-    input = [num]
-    output = list(map(int, str(input[0])))
-    
-    index = 0
-    count = 0
-    isTrue = False
-    for singular in output :
-        if singular == output[index - 1] and count is not 2:
-            count += 1
-            isTrue = True
-        else :
-            isTrue = False
-            continue
-    
-    if isTrue == True :
-        #print(userInput)
-        validInputs.append(num)
-    else :
-        continue
-        
-
 print(len(validInputs))
 print(validInputs)
