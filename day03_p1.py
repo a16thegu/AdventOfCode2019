@@ -81,6 +81,29 @@ def addWirePosition(path) :
 
     return wirePos
 
+def line_intersection(line1, line2):
+    xdiff = (line1[0][0] - line1[1][0], line2[0][0] - line2[1][0])
+    ydiff = (line1[0][1] - line1[1][1], line2[0][1] - line2[1][1])
+
+    def det(a, b):
+        return a[0] * b[1] - a[1] * b[0]
+
+    div = det(xdiff, ydiff)
+    if div == 0:
+       raise Exception('lines do not intersect')
+
+    d = (det(*line1), det(*line2))
+    x = det(d, xdiff) / div
+    y = det(d, ydiff) / div
+    return x, y
+
+def findCrossingPaths(wire1, wire2) :
+    for i in range(len(wire1)) :
+        for j in range(len(wire2)) :
+            #print(wire1[i])
+            print(wire2[j])
+            #print(line_intersection(wire1[i], wire2[j]))
+
 fname = "input_day03.txt"
 fh = open(fname)
 
@@ -95,8 +118,7 @@ wire2 = splitInput(testWire2)
 posWire1 = addWirePosition(wire1)
 posWire2 = addWirePosition(wire2)
 
-print(posWire1)
-print(posWire2)
+findCrossingPaths(posWire1, posWire2)
 
 
 # For calculating Manhattan Distance: https://www.geeksforgeeks.org/sum-manhattan-distances-pairs-points/
