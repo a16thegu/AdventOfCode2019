@@ -81,6 +81,9 @@ def addWirePosition(path) :
 
     return wirePos
 
+
+# Code on how to find the crossing point of two lines.
+# From: https://stackoverflow.com/questions/20677795/how-do-i-compute-the-intersection-point-of-two-lines
 def line_intersection(line1, line2):
     xdiff = (line1[0][0] - line1[1][0], line2[0][0] - line2[1][0])
     ydiff = (line1[0][1] - line1[1][1], line2[0][1] - line2[1][1])
@@ -90,20 +93,30 @@ def line_intersection(line1, line2):
 
     div = det(xdiff, ydiff)
     if div == 0:
-       raise Exception('lines do not intersect')
-
-    d = (det(*line1), det(*line2))
-    x = det(d, xdiff) / div
-    y = det(d, ydiff) / div
-    return x, y
+       #raise Exception('lines do not intersect')
+       print('lines do not intersect')
+    else :
+        d = (det(*line1), det(*line2))
+        x = det(d, xdiff) / div
+        y = det(d, ydiff) / div
+        return x, y
 
 def findCrossingPaths(wire1, wire2) :
-    for i in range(len(wire1)) :
-        for j in range(len(wire2)) :
-            #print(wire1[i])
-            print(wire2[j])
-            #print(line_intersection(wire1[i], wire2[j]))
+    crossingPoint = []
+    for i in range(len(wire1) - 1):
+        for j in range(len(wire2) - 1) :
+            point = line_intersection((wire1[i], wire1[i + 1]), (wire2[j], wire2[j + 1]))
+            if point != None :
+                crossingPaths.append(point)
 
+    return crossingPoint
+            
+# For calculating Manhattan Distance: https://www.geeksforgeeks.org/sum-manhattan-distances-pairs-points/
+
+
+#######################################################################################
+
+crossingPaths = []
 fname = "input_day03.txt"
 fh = open(fname)
 
@@ -118,7 +131,5 @@ wire2 = splitInput(testWire2)
 posWire1 = addWirePosition(wire1)
 posWire2 = addWirePosition(wire2)
 
-findCrossingPaths(posWire1, posWire2)
-
-
-# For calculating Manhattan Distance: https://www.geeksforgeeks.org/sum-manhattan-distances-pairs-points/
+crossingPaths.append(findCrossingPaths(posWire1, posWire2))
+print(crossingPaths)
